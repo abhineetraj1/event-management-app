@@ -56,28 +56,10 @@ def save_customer_info():
     email = txt_email.get()
     phone_number = txt_phone_number.get()
     customer_name = txt_customer_name.get()
-
     if place_of_visit and home_place and email and phone_number and customer_name:
-        customer_info.append(
-            {
-                "Place of Visit": place_of_visit,
-                "Home Place": home_place,
-                "Email": email,
-                "Phone Number": phone_number,
-                "Customer Name": customer_name,
-            }
-        )
+        customer_info.append({"Place of Visit": place_of_visit,"Home Place": home_place,"Email": email,"Phone Number": phone_number,"Customer Name": customer_name,})
         with open("customer_info.csv", mode="a", newline="") as file:
-            writer = csv.DictWriter(
-                file,
-                fieldnames=[
-                    "Place of Visit",
-                    "Home Place",
-                    "Email",
-                    "Phone Number",
-                    "Customer Name",
-                ],
-            )
+            writer = csv.DictWriter(file,fieldnames=["Place of Visit","Home Place","Email","Phone Number","Customer Name",],)
             if file.tell() == 0:
                 writer.writeheader()
             writer.writerow(customer_info[-1])
@@ -100,35 +82,27 @@ def open_add_travel_window():
     add_travel_window.title("Add Travel Information")
     add_travel_window.geometry("400x500")
     add_travel_window.configure(bg="#000000")  # Set background color to black
-
     lbl_place_of_visit = ttk.Label(add_travel_window, text="Place of Visit:", style="TLabel")
     lbl_place_of_visit.pack(pady=10)
     txt_place_of_visit = ttk.Entry(add_travel_window, width=30)
     txt_place_of_visit.pack()
-
     lbl_home_place = ttk.Label(add_travel_window, text="Home Place:", style="TLabel")
     lbl_home_place.pack(pady=10)
     txt_home_place = ttk.Entry(add_travel_window, width=30)
     txt_home_place.pack()
-
     lbl_email = ttk.Label(add_travel_window, text="Email:", style="TLabel")
     lbl_email.pack(pady=10)
     txt_email = ttk.Entry(add_travel_window, width=30)
     txt_email.pack()
-
     lbl_phone_number = ttk.Label(add_travel_window, text="Phone Number:", style="TLabel")
     lbl_phone_number.pack(pady=10)
     txt_phone_number = ttk.Entry(add_travel_window, width=30)
     txt_phone_number.pack()
-
     lbl_customer_name = ttk.Label(add_travel_window, text="Customer Name:", style="TLabel")
     lbl_customer_name.pack(pady=10)
     txt_customer_name = ttk.Entry(add_travel_window, width=30)
     txt_customer_name.pack()
-
-    btn_save_customer_info = ttk.Button(
-        add_travel_window, text="Save", command=save_customer_info, style="TButton"
-    )
+    btn_save_customer_info = ttk.Button(add_travel_window, text="Save", command=save_customer_info, style="TButton")
     btn_save_customer_info.pack(pady=10)
 
 # Function to search for customer information
@@ -137,13 +111,7 @@ def search_customer_info():
     if keyword:
         found_info = []
         for info in customer_info:
-            if (
-                keyword in info["Place of Visit"].lower()
-                or keyword in info["Home Place"].lower()
-                or keyword in info["Email"].lower()
-                or keyword in info["Phone Number"].lower()
-                or keyword in info["Customer Name"].lower()
-            ):
+            if (keyword in info["Place of Visit"].lower() or keyword in info["Home Place"].lower() or keyword in info["Email"].lower() or keyword in info["Phone Number"].lower() or keyword in info["Customer Name"].lower() ):
                 found_info.append(info)
         if found_info:
             display_search_results(found_info)
@@ -158,30 +126,20 @@ def display_search_results(results):
     result_window.title("Search Results")
     result_window.geometry("600x400")
     result_window.configure(bg="#000000")  # Set background color to black
-
     lbl_results = ttk.Label(result_window, text="Search Results:", style="TLabel")
     lbl_results.pack(pady=10)
-
-    results_listbox = tk.Listbox(
-        result_window, width=50, height=10, bg="#000000", fg="#C0C0C0", font=("Helvetica", 12)
-    )
+    results_listbox = tk.Listbox(result_window, width=50, height=10, bg="#000000", fg="#C0C0C0", font=("Helvetica", 12))
     results_listbox.pack(padx=20, pady=10)
-
     for info in results:
-        results_listbox.insert(
-            tk.END,
-            f"Place of Visit: {info['Place of Visit']}\n"
+        results_listbox.insert(tk.END, f"Place of Visit: {info['Place of Visit']}\n"
             f"Home Place: {info['Home Place']}\n"
             f"Email: {info['Email']}\n"
             f"Phone Number: {info['Phone Number']}\n"
             f"Customer Name: {info['Customer Name']}\n"
-            "-------------------------------",
-        )
+            "-------------------------------",)
 
 # Create Add Travel Information Button
-btn_add_travel_info = ttk.Button(
-    root, text="Add Travel Information", command=open_add_travel_window, style="TButton"
-)
+btn_add_travel_info = ttk.Button(root, text="Add Travel Information", command=open_add_travel_window, style="TButton")
 btn_add_travel_info.place(x=20, y=20)
 
 # Create Search Entry Field and Button
@@ -190,9 +148,7 @@ lbl_search.place(x=20, y=60)
 txt_search = ttk.Entry(root, width=30)
 txt_search.place(x=80, y=60)
 
-btn_search = ttk.Button(
-    root, text="Search", command=search_customer_info, style="TButton"
-)
+btn_search = ttk.Button(root, text="Search", command=search_customer_info, style="TButton")
 btn_search.place(x=320, y=60)
 
 # Start the main event loop
